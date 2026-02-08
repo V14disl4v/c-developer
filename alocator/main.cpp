@@ -5,6 +5,7 @@ static const size_t HEAP_SIZE  = 4096;
 static const size_t SMALL_SIZE = 15;
 static const size_t LARGE_SIZE = 180;
 
+/* Заголовок блока памяти */
 struct block {
     struct block* next;
     uint8_t size; 
@@ -14,6 +15,7 @@ static uint8_t heap[4096];
 static struct block* free_list = NULL;
 static int initialized = 0;
 
+/* Инициализация пула памяти */
 static void init_heap(void) {
     uint8_t* ptr = heap;
 
@@ -33,6 +35,7 @@ static void init_heap(void) {
     }
 }
 
+/* Выделение блока памяти заданного размера */
 void* my_malloc(size_t size) {
     if (!initialized) {
         init_heap();
@@ -54,6 +57,7 @@ void* my_malloc(size_t size) {
     return NULL;
 }
 
+/* Освобождение блока памяти */
 void my_free(void* ptr) {
     if (!ptr)
         return;
